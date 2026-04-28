@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuMan : MonoBehaviour
 {
-    public void GoToScene(string sceneName)
+    public void LoadNextScene()
     {
-        SceneManager.LoadScene(sceneName);
+        // Gets the current scene's index and loads the next one in line
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
