@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5012906719503421654
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 270320222826810571, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_Name
+      value: BombPrefab Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.469
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.22108649
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.177
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 615742333736064625, guid: 89550041159564646b7442dd722646c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 270320222826810571, guid: 89550041159564646b7442dd722646c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 48869770361116320}
+    - targetCorrespondingSourceObject: {fileID: 270320222826810571, guid: 89550041159564646b7442dd722646c0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 838473597972603954}
+  m_SourcePrefab: {fileID: 100100000, guid: 89550041159564646b7442dd722646c0, type: 3}
+--- !u!1 &5066886948008352797 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 270320222826810571, guid: 89550041159564646b7442dd722646c0, type: 3}
+  m_PrefabInstance: {fileID: 5012906719503421654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &48869770361116320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5066886948008352797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca66515aab0ccf641b8bc889c71289ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombClickHandler
+--- !u!65 &838473597972603954
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5066886948008352797}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 4, z: 11}
+  m_Center: {x: 0, y: 0, z: 0}
