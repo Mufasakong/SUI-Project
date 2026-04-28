@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BombClickHandler : MonoBehaviour
 {
@@ -15,17 +16,28 @@ public class BombClickHandler : MonoBehaviour
     }
 
     void Update()
+    {
+        if (Input.touchCount > 0)
         {
-        // 1. Check for real mobile screen touches first
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            TryClick(Input.GetTouch(0).position);
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                // Check if touch is over UI first
+                if (!IsPointerOverUI(touch.position))
+                {
+                    TryClick(touch.position);
+                }
+            }
         }
-        // 2. If no touch happened, check for a mouse click (for Unity Editor testing)
+#if UNITY_EDITOR
         else if (Input.GetMouseButtonDown(0))
         {
-            TryClick(Input.mousePosition);
+            if (!IsPointerOverUI(Input.mousePosition))
+            {
+                TryClick(Input.mousePosition);
+            }
         }
+#endif
     }
 
     void TryClick(Vector2 screenPosition)
@@ -38,8 +50,20 @@ public class BombClickHandler : MonoBehaviour
         {
             if (hit.transform == transform || hit.transform.IsChildOf(transform))
             {
+                Debug.Log("Bomb clicked!");
                 sequenceMiniGame.StartGame();
             }
         }
+    }
+
+    bool IsPointerOverUI(Vector2 screenPosition)
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = screenPosition;
+        
+        var results = new System.Collections.Generic.List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        
+        return results.Count > 0;
     }
 }
