@@ -447,10 +447,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2512387470319625119, guid: 48cb3fb68c91eb94999fd99957eb0cae, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2512387469002778308, guid: 48cb3fb68c91eb94999fd99957eb0cae, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 806522611}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2512387469002778309, guid: 48cb3fb68c91eb94999fd99957eb0cae, type: 3}
       insertIndex: -1
@@ -1213,8 +1210,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 806522611}
+  - component: {fileID: 806522612}
   m_Layer: 0
-  m_Name: Parent
+  m_Name: ArrowParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1228,14 +1226,34 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806522610}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1228385387}
-  m_Father: {fileID: 331264286}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &806522612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806522610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58bfd942f539fa4e83ee74ed67172a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombDirectionArrow
+  cameraTransform: {fileID: 331264286}
+  bombSpawner: {fileID: 528095862}
+  heightOffset: 0.5
+  floatSpeed: 3
+  floatAmount: 0.1
+  minScale: 0.5
+  maxScale: 2
+  scaleMultiplier: 0.2
 --- !u!1 &1075000274
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,38 +1447,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4dc31465e66167342ae5fd7f74b3655b, type: 3}
       propertyPath: m_Name
-      value: 3D RightArrow
+      value: DebugArrow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4dc31465e66167342ae5fd7f74b3655b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1228385389}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dc31465e66167342ae5fd7f74b3655b, type: 3}
 --- !u!4 &1228385387 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4dc31465e66167342ae5fd7f74b3655b, type: 3}
   m_PrefabInstance: {fileID: 1228385386}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1228385388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4dc31465e66167342ae5fd7f74b3655b, type: 3}
-  m_PrefabInstance: {fileID: 1228385386}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1228385389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228385388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f58bfd942f539fa4e83ee74ed67172a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BombDirectionArrow
 --- !u!1 &1323550131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,3 +2201,4 @@ SceneRoots:
   - {fileID: 528095863}
   - {fileID: 84494380}
   - {fileID: 231953358}
+  - {fileID: 806522611}

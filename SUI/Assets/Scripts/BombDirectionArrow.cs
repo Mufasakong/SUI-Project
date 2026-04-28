@@ -6,10 +6,14 @@ public class BombDirectionArrow : MonoBehaviour
     public BombSpawnerMan bombSpawner;
 
     [Header("Settings")]
-    public float heightOffset = 0.25f;
-    public float forwardOffset = 0.6f;
-    public float rotationSpeed = 5f;
-    public float hideDistance = 0.5f;
+    public float heightOffset = 0.5f;
+    public float floatSpeed = 3f;
+    public float floatAmount = 0.1f;
+
+    [Header("Scale Settings")]
+    public float minScale = 0.5f;
+    public float maxScale = 2f;
+    public float scaleMultiplier = 0.2f;
 
     void Update()
     {
@@ -17,30 +21,30 @@ public class BombDirectionArrow : MonoBehaviour
 
         Vector3 bombPos = bombSpawner.GetBombPosition();
 
-        // Keep arrow in front of camera (top of screen)
-        transform.position = cameraTransform.position 
-                           + cameraTransform.forward * forwardOffset
-                           + Vector3.up * heightOffset;
+        // Floating effect
+        float floatOffset = Mathf.Sin(Time.time * floatSpeed) * floatAmount;
 
-        // Direction to bomb (horizontal only)
-        Vector3 direction = bombPos - cameraTransform.position;
-        direction.y = 0f;
+        // Position arrow above bomb
+        transform.position = bombPos + Vector3.up * (heightOffset + floatOffset);
 
-        if (direction.sqrMagnitude < 0.001f) return;
+        // Face the player (horizontal only)
+        Vector3 lookDir = cameraTransform.position - transform.position;
+        lookDir.y = 0f;
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        if (lookDir.sqrMagnitude > 0.001f)
+        {
+            transform.rotation = Quaternion.LookRotation(lookDir);
+        }
 
-        Quaternion flatRotation = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
-
-        // Smooth rotation
-        transform.rotation = Quaternion.Lerp(
-            transform.rotation,
-            flatRotation,
-            Time.deltaTime * rotationSpeed
-        );
-
-        // Hide when very close to bomb
+        // Scale based on distance
         float dist = Vector3.Distance(cameraTransform.position, bombPos);
-        gameObject.SetActive(dist > hideDistance);
+        float scale = Mathf.Clamp(dist * scaleMultiplier, minScale, maxScale);
+        transform.localScale = Vector3.one * scale;
+
+        // Hide when bomb is revealed
+        if (bombSpawner.IsBombRevealed())
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

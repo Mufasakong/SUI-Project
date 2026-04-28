@@ -203,4 +203,14 @@ public class BombSpawnerMan : MonoBehaviour
 
         Debug.Log("THE BOMB HAS BEEN REVEALED! OH NO!");
     }
+
+    public bool IsBombRevealed()
+    {
+        return bombRevealed;
+    }
+
+    public Vector3 GetBombPosition()
+    {
+        return bombPosition;
+    }
 }
