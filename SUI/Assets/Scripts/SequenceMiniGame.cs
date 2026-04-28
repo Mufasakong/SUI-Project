@@ -12,6 +12,9 @@ public class SequenceMiniGame : MonoBehaviour
     public Button[] colorButtons;
     public TMP_Text instructionText;
 
+    [Header("Look Visibility")]
+    public float lookThreshold = 0.85f;
+
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip buttonSound;
@@ -25,10 +28,15 @@ public class SequenceMiniGame : MonoBehaviour
     private List<int> sequence = new List<int>();
     private int playerIndex = 0;
     private bool acceptingInput = false;
+    private bool gameRunning = false;
+
+    private Transform cameraTransform;
+    private Transform bombTransform;
 
     void Start()
     {
-        gamePanel.SetActive(false);
+        if (gamePanel != null)
+            gamePanel.SetActive(false);
 
         for (int i = 0; i < colorButtons.Length; i++)
         {
@@ -37,9 +45,28 @@ public class SequenceMiniGame : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    void Update()
     {
-        gamePanel.SetActive(true);
+        if (!gameRunning || cameraTransform == null || bombTransform == null)
+            return;
+
+        Vector3 directionToBomb = (bombTransform.position - cameraTransform.position).normalized;
+        float aimDot = Vector3.Dot(cameraTransform.forward, directionToBomb);
+
+        bool lookingAtBomb = aimDot >= lookThreshold;
+
+        if (gamePanel != null)
+            gamePanel.SetActive(lookingAtBomb);
+    }
+
+    public void StartGame(Transform cam, Transform bomb)
+    {
+        cameraTransform = cam;
+        bombTransform = bomb;
+        gameRunning = true;
+
+        if (gamePanel != null)
+            gamePanel.SetActive(false);
 
         sequence.Clear();
         playerIndex = 0;
@@ -74,6 +101,9 @@ public class SequenceMiniGame : MonoBehaviour
 
     IEnumerator FlashButton(int index)
     {
+        if (index < 0 || index >= colorButtons.Length)
+            yield break;
+
         Image image = colorButtons[index].GetComponent<Image>();
 
         Color originalColor = image.color;
@@ -128,15 +158,21 @@ public class SequenceMiniGame : MonoBehaviour
     {
         acceptingInput = false;
         yield return new WaitForSeconds(1f);
-        StartGame();
+        StartGame(cameraTransform, bombTransform);
     }
 
     IEnumerator CloseAfterDelay()
     {
         acceptingInput = false;
+        gameRunning = false;
+
         yield return new WaitForSeconds(1f);
-        gamePanel.SetActive(false);
-        SceneManager.LoadScene(nextSceneName);
+
+        if (gamePanel != null)
+            gamePanel.SetActive(false);
+
+        GameTimer.StopTimer();
+        SceneManager.LoadScene("EndMenu");
     }
 
     void PlaySound()

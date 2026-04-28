@@ -3,9 +3,31 @@ using UnityEngine.SceneManagement;
 
 public class MenuMan : MonoBehaviour
 {
-    public void LoadNextScene()
+    public string gameSceneName = "MainScene";
+    public string leaderboardSceneName = "Leaderboard";
+
+    public void StartGame()
     {
-        // Gets the current scene's index and loads the next one in line
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("BombScene");
+    }
+
+    public void OpenLeaderboard()
+    {
+        SceneManager.LoadScene("Leaderboard");
+    }
+
+    public void OpenMainMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+
+    public void OpenEndMenu()
+    {
+        SceneManager.LoadScene("EndMenu");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

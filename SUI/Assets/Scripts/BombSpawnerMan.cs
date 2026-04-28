@@ -10,14 +10,15 @@ public class BombSpawnerMan : MonoBehaviour
     public AudioSource audioSource;
     public TMP_Text holdText;
 
+    [Header("Mini Game")]
+    public SequenceMiniGame sequenceMiniGame;
+
     [Header("Spawn Settings")]
     public float minSpawnRadius = 1.0f;
     public float maxSpawnRadius = 2.0f;
 
     [Header("Find / Hold Settings")]
-    // Increased this so it's larger than the maxSpawnRadius. 
-    // This allows the player to trigger it just by turning around!
-    public float revealDistance = 2.5f; 
+    public float revealDistance = 2.5f;
     public float aimThreshold = 0.95f;
     public float requiredHoldTime = 3f;
 
@@ -81,18 +82,6 @@ public class BombSpawnerMan : MonoBehaviour
         Vector3 directionToBomb = (bombPosition - cameraTransform.position).normalized;
         float aimDot = Vector3.Dot(cameraTransform.forward, directionToBomb);
 
-        if (previousDistance >= 0f)
-        {
-            if (distanceToBomb < previousDistance - 0.02f)
-            {
-                // Debug.Log("Getting closer...");
-            }
-            else if (distanceToBomb > previousDistance + 0.02f)
-            {
-                // Debug.Log("Getting farther...");
-            }
-        }
-
         previousDistance = distanceToBomb;
 
         bool closeEnough = distanceToBomb <= revealDistance;
@@ -120,31 +109,20 @@ public class BombSpawnerMan : MonoBehaviour
         }
         else
         {
-            // AR FIX: Slowly drain the timer instead of an instant wipe.
-            // Multiplying by 1.5 makes it drain a bit faster than it fills.
-            holdTimer = Mathf.Max(0f, holdTimer - (Time.deltaTime * 1.5f));
+            holdTimer = Mathf.Max(0f, holdTimer - Time.deltaTime * 1.5f);
 
             if (holdText != null)
             {
                 if (holdTimer > 0f)
-                {
-                    // Let them know they are losing the lock
-                    holdText.text = "Tracking lost! Re-center..."; 
-                }
+                    holdText.text = "Tracking lost! Re-center...";
                 else
-                {
-                    holdText.text = ""; // Clear only when fully drained
-                }
+                    holdText.text = "";
             }
 
             if (distanceToBomb < 0.8f || aimDot > 0.85f)
-            {
                 beepInterval = mediumBeepInterval;
-            }
             else
-            {
                 beepInterval = farBeepInterval;
-            }
         }
 
         beepTimer += Time.deltaTime;
@@ -176,30 +154,31 @@ public class BombSpawnerMan : MonoBehaviour
 
         float revealDistanceFromPlayer = 3f;
 
-        // AR FIX: Flatten the forward vector so the bomb doesn't spawn deep underground
         Vector3 flatForward = cameraTransform.forward;
-        flatForward.y = 0; 
-        
-        // Prevent a rare error if the player is looking EXACTLY straight down
-        if (flatForward.sqrMagnitude > 0.001f) 
-        {
-            flatForward.Normalize();
-        }
-        else 
-        {
-            flatForward = cameraTransform.up; 
-        }
+        flatForward.y = 0;
 
-        Vector3 revealPosition = cameraTransform.position + (flatForward * revealDistanceFromPlayer);
-        
-        // Optional: Drop the bomb down half a meter so it sits closer to the floor
-        revealPosition.y -= 0.5f; 
+        if (flatForward.sqrMagnitude > 0.001f)
+            flatForward.Normalize();
+        else
+            flatForward = cameraTransform.forward;
+
+        Vector3 revealPosition = cameraTransform.position + flatForward * revealDistanceFromPlayer;
+        revealPosition.y -= 0.5f;
 
         bombInstance = Instantiate(
             bombPrefab,
             revealPosition,
             Quaternion.identity
         );
+
+        if (sequenceMiniGame != null)
+        {
+            sequenceMiniGame.StartGame(cameraTransform, bombInstance.transform);
+        }
+        else
+        {
+            Debug.LogWarning("SequenceMiniGame reference missing on BombSpawnerMan!");
+        }
 
         Debug.Log("THE BOMB HAS BEEN REVEALED! OH NO!");
     }
@@ -212,5 +191,10 @@ public class BombSpawnerMan : MonoBehaviour
     public Vector3 GetBombPosition()
     {
         return bombPosition;
+    }
+
+    public GameObject GetBombInstance()
+    {
+        return bombInstance;
     }
 }

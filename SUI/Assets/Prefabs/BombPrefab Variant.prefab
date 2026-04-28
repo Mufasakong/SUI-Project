@@ -70,9 +70,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 270320222826810571, guid: 89550041159564646b7442dd722646c0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 48869770361116320}
-    - targetCorrespondingSourceObject: {fileID: 270320222826810571, guid: 89550041159564646b7442dd722646c0, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 838473597972603954}
     - targetCorrespondingSourceObject: {fileID: 270320222826810571, guid: 89550041159564646b7442dd722646c0, type: 3}
       insertIndex: -1
@@ -89,18 +86,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 270320222826810571, guid: 89550041159564646b7442dd722646c0, type: 3}
   m_PrefabInstance: {fileID: 5012906719503421654}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &48869770361116320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5066886948008352797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca66515aab0ccf641b8bc889c71289ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BombClickHandler
 --- !u!65 &838473597972603954
 BoxCollider:
   m_ObjectHideFlags: 0
