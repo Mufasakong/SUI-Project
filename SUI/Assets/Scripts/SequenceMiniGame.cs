@@ -171,7 +171,10 @@ public class SequenceMiniGame : MonoBehaviour
         if (gamePanel != null)
             gamePanel.SetActive(false);
 
-        GameTimer.StopTimer();
+        // --- TIMER HOOKS: Stop the defusing phase and the total game timer ---
+        GameTimer.StopPhase("DefusePhase");
+        GameTimer.StopPhase("TotalGame");
+
         SceneManager.LoadScene("EndMenu");
     }
 

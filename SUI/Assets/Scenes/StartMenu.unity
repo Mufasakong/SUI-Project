@@ -1143,11 +1143,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Disarm
+  m_text: 'SEARCH
 
-    the
+    N
 
-    Bomb'
+    Destroy'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2600e99e417d10748bfd717b90159cdc, type: 2}
   m_sharedMaterial: {fileID: 3417221227219101646, guid: 2600e99e417d10748bfd717b90159cdc, type: 2}

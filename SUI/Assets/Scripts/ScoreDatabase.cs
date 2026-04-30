@@ -6,7 +6,9 @@ using System.IO;
 public class ScoreEntry
 {
     public string playerName;
-    public float time;
+    public float totalTime;
+    public float findTime;
+    public float defuseTime;
 }
 
 [System.Serializable]
@@ -25,17 +27,23 @@ public static class ScoreDatabase
         }
     }
 
-    public static void SaveScore(string playerName, float time)
+    // 1. Update this to accept all three times!
+    public static void SaveScore(string playerName, float totalTime, float findTime, float defuseTime)
     {
         ScoreData data = LoadScores();
 
         ScoreEntry entry = new ScoreEntry();
         entry.playerName = playerName;
-        entry.time = time;
+        
+        // 2. Assign the new variables
+        entry.totalTime = totalTime;
+        entry.findTime = findTime;
+        entry.defuseTime = defuseTime;
 
         data.scores.Add(entry);
 
-        data.scores.Sort((a, b) => a.time.CompareTo(b.time));
+        // 3. Sort by totalTime instead of the old 'time' variable
+        data.scores.Sort((a, b) => a.totalTime.CompareTo(b.totalTime));
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(FilePath, json);

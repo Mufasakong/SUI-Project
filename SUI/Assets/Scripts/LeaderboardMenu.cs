@@ -35,12 +35,12 @@ public class LeaderboardMenu : MonoBehaviour
         {
             ScoreEntry entry = data.scores[i];
 
+            // Format the string to show the breakdown!
             string rowText =
                 (i + 1) + ". " +
                 entry.playerName +
-                " - " +
-                entry.time.ToString("F2") +
-                "s";
+                " - " + entry.totalTime.ToString("F2") + "s " +
+                "(Find: " + entry.findTime.ToString("F2") + "s | Defuse: " + entry.defuseTime.ToString("F2") + "s)";
 
             CreateRow(rowText);
         }

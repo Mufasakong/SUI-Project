@@ -9,19 +9,26 @@ public class EndMenu : MonoBehaviour
 
     public string mainMenuSceneName = "StartMenu";
 
-    private float finalTime;
-
     void Start()
     {
         if (nameInput == null)
             nameInput = FindObjectOfType<TMP_InputField>();
 
-        finalTime = GameTimer.GetFinalTime();
+        // 1. Grab all three phase times
+        float totalTime = GameTimer.GetPhaseDuration("TotalGame");
+        float findTime = GameTimer.GetPhaseDuration("FindPhase");
+        float defuseTime = GameTimer.GetPhaseDuration("DefusePhase");
 
+        // 2. Format them into a single string with line breaks (\n)
         if (finalTimeText != null)
-            finalTimeText.text = "Your time: " + finalTime.ToString("F2") + " seconds";
+        {
+            finalTimeText.text = 
+                "Total: " + totalTime.ToString("F2") + " seconds\n" +
+                "Find: " + findTime.ToString("F2") + " seconds\n" +
+                "Defuse: " + defuseTime.ToString("F2") + " seconds";
+        }
 
-        Debug.Log("ENDMENU START - FinalTime: " + finalTime);
+        Debug.Log("ENDMENU START - TotalTime: " + totalTime);
         Debug.Log("ENDMENU START - NameInput: " + nameInput);
     }
 
@@ -42,12 +49,15 @@ public class EndMenu : MonoBehaviour
                 playerName = "Player";
         }
 
-        // IMPORTANT: get the latest time again when saving
-        float timeToSave = GameTimer.GetFinalTime();
+        // IMPORTANT: Grab all three times to save!
+        float totalTimeToSave = GameTimer.GetPhaseDuration("TotalGame");
+        float findTimeToSave = GameTimer.GetPhaseDuration("FindPhase");
+        float defuseTimeToSave = GameTimer.GetPhaseDuration("DefusePhase");
 
-        ScoreDatabase.SaveScore(playerName, timeToSave);
+        // Send all of them to the database
+        ScoreDatabase.SaveScore(playerName, totalTimeToSave, findTimeToSave, defuseTimeToSave);
 
-        Debug.Log("SAVED SCORE: " + playerName + " - " + timeToSave.ToString("F2"));
+        Debug.Log("SAVED SCORE: " + playerName + " - Total: " + totalTimeToSave.ToString("F2"));
     }
 
     public void BackToMainMenu()

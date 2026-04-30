@@ -330,13 +330,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 618416165}
-  - {fileID: 1948119909}
   - {fileID: 2128736231}
+  - {fileID: 1948119909}
   m_Father: {fileID: 84494380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 474}
+  m_AnchoredPosition: {x: 0, y: -477}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!156049354 &436800227
@@ -602,11 +602,11 @@ MonoBehaviour:
   bombPrefab: {fileID: 5066886948008352797, guid: 4663a1b30da4dbf419028984ef81c375, type: 3}
   audioSource: {fileID: 528095861}
   holdText: {fileID: 2007770965}
-  sequenceMiniGame: {fileID: 0}
+  sequenceMiniGame: {fileID: 8979642414112518607}
   minSpawnRadius: 1
   maxSpawnRadius: 2
-  revealDistance: 0.9
-  aimThreshold: 0.95
+  revealDistance: 2
+  aimThreshold: 0.7
   requiredHoldTime: 3
   farBeepInterval: 1.2
   mediumBeepInterval: 0.5
@@ -796,7 +796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1137,7 +1137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &806522611
 Transform:
   m_ObjectHideFlags: 0
@@ -1799,7 +1799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.0000076293945}
+  m_AnchoredPosition: {x: 0, y: 46}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1948119910
@@ -2201,7 +2201,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -0.40222168}
+  m_margin: {x: 0, y: -91.75952, z: 5.540283, w: -1.6594849}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2214,7 +2214,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128736228}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
 --- !u!224 &2128736231
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2231,8 +2231,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1.4234, y: 646}
-  m_SizeDelta: {x: 1082.8472, y: 516.612}
+  m_AnchoredPosition: {x: -0.00000083484, y: 480}
+  m_SizeDelta: {x: 1080, y: 222.1449}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &8979642414112518606
 PrefabInstance:

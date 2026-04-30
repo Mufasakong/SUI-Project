@@ -2,42 +2,48 @@ using UnityEngine;
 
 public class GameTimer
 {
-    public static void StartTimer()
+    // Pass in a name for the phase (e.g., "FindBomb", "DefuseMinigame")
+    public static void StartPhase(string phaseName)
     {
         float startTime = Time.realtimeSinceStartup;
-
-        PlayerPrefs.SetFloat("StartTime", startTime);
-        PlayerPrefs.SetFloat("FinalTime", 0f);
+        PlayerPrefs.SetFloat(phaseName + "_StartTime", startTime);
+        PlayerPrefs.SetFloat(phaseName + "_Duration", 0f);
         PlayerPrefs.Save();
 
-        Debug.Log("TIMER STARTED: " + startTime);
+        Debug.Log($"TIMER STARTED [{phaseName}]: {startTime}");
     }
 
-    public static void StopTimer()
+    // Stop the timer for that specific phase
+    public static void StopPhase(string phaseName)
     {
-        float startTime = PlayerPrefs.GetFloat("StartTime", -1f);
-        Debug.Log("LOADED START TIME: " + startTime);
+        float startTime = PlayerPrefs.GetFloat(phaseName + "_StartTime", -1f);
 
         if (startTime < 0f)
         {
-            Debug.LogWarning("No StartTime found, cannot calculate final time.");
-            PlayerPrefs.SetFloat("FinalTime", 0f);
+            Debug.LogWarning($"No StartTime found for phase '{phaseName}'. Cannot calculate duration.");
+            PlayerPrefs.SetFloat(phaseName + "_Duration", 0f);
         }
         else
         {
-            float finalTime = Time.realtimeSinceStartup - startTime;
-
-            PlayerPrefs.SetFloat("FinalTime", finalTime);
+            float duration = Time.realtimeSinceStartup - startTime;
+            PlayerPrefs.SetFloat(phaseName + "_Duration", duration);
             PlayerPrefs.Save();
 
-            Debug.Log("TIMER STOPPED: " + finalTime);
+            Debug.Log($"TIMER STOPPED [{phaseName}]: Took {duration} seconds.");
         }
     }
 
-    public static float GetFinalTime()
+    // Get the final duration of a phase (useful for your end-game TMP screen)
+    public static float GetPhaseDuration(string phaseName)
     {
-        float finalTime = PlayerPrefs.GetFloat("FinalTime", 0f);
-        Debug.Log("FINAL TIME LOADED: " + finalTime);
-        return finalTime;
+        return PlayerPrefs.GetFloat(phaseName + "_Duration", 0f);
+    }
+
+    // Optional: Format the time for TextMeshPro (e.g., "01:23")
+    public static string GetFormattedTime(float timeInSeconds)
+    {
+        int minutes = Mathf.FloorToInt(timeInSeconds / 60F);
+        int seconds = Mathf.FloorToInt(timeInSeconds - minutes * 60);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

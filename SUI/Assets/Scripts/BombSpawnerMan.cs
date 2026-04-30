@@ -44,6 +44,9 @@ public class BombSpawnerMan : MonoBehaviour
         if (holdText != null)
             holdText.text = "";
 
+        // Start the overall game timer if you still want a master timer
+        GameTimer.StartPhase("TotalGame"); 
+
         StartCoroutine(SpawnAfterDelay());
     }
 
@@ -70,6 +73,9 @@ public class BombSpawnerMan : MonoBehaviour
         bombRevealed = false;
         holdTimer = 0f;
         previousDistance = -1f;
+
+        // --- TIMER HOOK: Start tracking how long it takes to find the bomb ---
+        GameTimer.StartPhase("FindPhase");
 
         Debug.Log("Hidden bomb spawned at: " + bombPosition);
     }
@@ -145,6 +151,10 @@ public class BombSpawnerMan : MonoBehaviour
     void RevealBomb()
     {
         bombRevealed = true;
+
+        // --- TIMER HOOKS: Stop finding phase, start defuse phase ---
+        GameTimer.StopPhase("FindPhase");
+        GameTimer.StartPhase("DefusePhase");
 
         if (bombPrefab == null)
         {
